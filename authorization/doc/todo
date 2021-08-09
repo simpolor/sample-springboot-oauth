@@ -1,0 +1,47 @@
+// jwt 인증 설정
+https://blog.naver.com/PostView.naver?blogId=varkiry05&logNo=222433667244&categoryNo=107&parentCategoryNo=0&viewDate=&currentPage=1&postListTopCurrentPage=1&from=postView&userTopListOpen=true&userTopListCount=5&userTopListManageOpen=false&userTopListCurrentPage=1
+
+// 리소스 서버 설정
+https://blog.naver.com/PostView.naver?blogId=varkiry05&logNo=221879278816&parentCategoryNo=&categoryNo=107&viewDate=&isShowPopularPosts=false&from=postView
+
+// 인증 서버
+https://blog.naver.com/varkiry05/221865197562
+
+// 스프링 oauth 최종버전
+https://github.com/spring-projects/spring-security-oauth/issues/1327
+
+// 스프링 시큐리티와 OAuth 2.0의 jwt 콜라보
+https://velog.io/@tmdgh0221/Spring-Security-%EC%99%80-OAuth-2.0-%EC%99%80-JWT-%EC%9D%98-%EC%BD%9C%EB%9D%BC%EB%B3%B4
+https://wonyong-jang.github.io/spring/2020/08/27/Spring-Security-oauth2-jwt-2.html
+
+https://ozofweird.tistory.com/entry/Spring-Boot-Spring-Boot-JWT-OAuth2?category=892873
+https://ozofweird.tistory.com/entry/Spring-Boot-Spring-Boot-JWT-OAuth2-2
+
+// 인증서버
+https://daddyprogrammer.org/post/1239/spring-oauth-authorizationserver/
+https://velog.io/@cjy9306/Spring-boot%EC%9D%98-Authorization-Server-%EA%B5%AC%ED%98%84
+
+// 리소스 서버
+https://ichi.pro/ko/spring-boot-ui-naejang-oauth2-lisoseu-seobeoleul-sayonghan-jwt-injeung-34487428104975
+
+// 이거부터
+https://gaemi606.tistory.com/entry/Spring-Boot-Spring-Security-OAuth2?category=745027
+
+// 자세한 구현
+https://velog.io/@cjy9306/Spring-boot%EC%9D%98-Resource-Server-%EA%B5%AC%ED%98%84
+
+
+userDetailsService - 사용자를 인증하고 인가하는 서비스를 설정
+accessTokenConverter - access token을 jwt 토큰으로 변환하기 위해 사용하며 jwtSecret 키를 통해 jwt 토큰을 설정
+tokenStore - token이 저장될 기본 store를 정의
+authenticationManager - password 값으로 사용자를 인증하고 인가
+allowedTokenEndpointRequestMethods - token endpoint를 사용할 때 허용할 method들을 설정
+tokenEnhancer - access token 추가 설정
+
+다음에 할꺼
+https://daddyprogrammer.org/post/1287/spring-oauth2-authorizationserver-database/
+
+읽어볼꺼
+https://autumnly.tistory.com/64
+https://lemontia.tistory.com/927
+https://velog.io/@agugu95/OAuth%EC%84%9C%EB%B2%84-%EA%B5%AC%ED%98%84%EC%9D%84-%EC%9C%84%ED%95%9C-Spring-Security-%EC%95%8C%EC%95%84%EB%B3%B4%EA%B8%B0

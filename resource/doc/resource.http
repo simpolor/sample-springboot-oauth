@@ -1,0 +1,28 @@
+# /board/list : 인증 불필요
+GET http://localhost:8080/board/list
+Content-Type: application/x-www-form-urlencoded
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Mjg1MTUwMjIsInVzZXJfbmFtZSI6InVzZXJAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiVVNFUiJdLCJqdGkiOiJLVFdwYzZkVzBlSVFCZ1pkNWZFQWNqRTNfLWsiLCJjbGllbnRfaWQiOiJ0ZXN0Q2xpZW50SWQiLCJzY29wZSI6WyJyZWFkIl19.T0iPPQYPjvtAOwb622RcbmFZCFDGALEKgFXJITNLkBs
+
+###
+
+# /board/list : 인증 필요, scope : read
+GET http://localhost:8080/board/detail
+Content-Type: application/x-www-form-urlencoded
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Mjg1MTUwMjIsInVzZXJfbmFtZSI6InVzZXJAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiVVNFUiJdLCJqdGkiOiJLVFdwYzZkVzBlSVFCZ1pkNWZFQWNqRTNfLWsiLCJjbGllbnRfaWQiOiJ0ZXN0Q2xpZW50SWQiLCJzY29wZSI6WyJyZWFkIl19.T0iPPQYPjvtAOwb622RcbmFZCFDGALEKgFXJITNLkBs
+
+###
+
+
+# /board/list : 인증 필요, scope : write
+GET http://localhost:8080/board/detail
+Content-Type: application/x-www-form-urlencoded
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Mjg1MTUzNTUsInVzZXJfbmFtZSI6InVzZXJAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiVVNFUiJdLCJqdGkiOiJqYmYtLVk1NnV3ckF4Vm9KckRUa0drYnZaTjAiLCJjbGllbnRfaWQiOiJ0ZXN0Q2xpZW50SWQiLCJzY29wZSI6WyJ3cml0ZSJdfQ.0E2r43lleZniNlnVHL9sF8mF2m4xCrMCUEDFsEVDfEE
+
+###
+
+# /board/register : 인증 필요 Role : ROLE_USER
+GET http://localhost:8080/board/register
+Content-Type: application/x-www-form-urlencoded
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Mjg1MTY3NjcsInVzZXJfbmFtZSI6InVzZXJAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImp0aSI6IlpldEJmT0szWXNGTkJFTnp3UThqcHUtcjJmQSIsImNsaWVudF9pZCI6InRlc3RDbGllbnRJZCIsInNjb3BlIjpbInJlYWQiXX0.roFSXlQkPOAzPsX2haLsv3K0d0Bxqp4Kw4jH22JWexo
+
+###
