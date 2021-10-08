@@ -2,6 +2,7 @@ package io.simpolor.authorization.security;
 
 import io.simpolor.authorization.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,6 +11,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class OAuthAuthenticationProvider implements AuthenticationProvider {
@@ -21,8 +23,8 @@ public class OAuthAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = (String) authentication.getPrincipal();
         String password = (String) authentication.getCredentials();
-        System.out.println("authentication.username = " + username);
-        System.out.println("authentication.password = " + password);
+        log.info("authentication.username : {}", username);
+        log.info("authentication.password : {}", password);
 
         // 테스트 유저 호출(만약 DB에 연동해서 불러온다면 대체해도 된다)
         UserDetails user = userService.loadUserByUsername(username);

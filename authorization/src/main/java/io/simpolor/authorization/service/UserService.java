@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Slf4j
@@ -35,7 +36,7 @@ public class UserService implements UserDetailsService {
 
 		Optional<User> optionalUser = userRepository.findById(seq);
 		if(!optionalUser.isPresent()){
-			throw new UsernameNotFoundException("Exist Not User");
+			throw new EntityNotFoundException("Not found User");
 		}
 
 		return optionalUser.get();
@@ -51,14 +52,17 @@ public class UserService implements UserDetailsService {
 
 		Optional<User> optionalUser = userRepository.findById(user.getSeq());
 		if(!optionalUser.isPresent()){
-			throw new UsernameNotFoundException("Exist Not User");
+			throw new EntityNotFoundException("Not found User");
 		}
-
 		userRepository.save(user);
 	}
 
 	public void delete(long seq) {
 
+		Optional<User> optionalUser = userRepository.findById(seq);
+		if(!optionalUser.isPresent()){
+			throw new EntityNotFoundException("Not found User");
+		}
 		userRepository.deleteById(seq);
 	}
 }

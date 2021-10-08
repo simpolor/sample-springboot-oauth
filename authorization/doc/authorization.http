@@ -16,6 +16,15 @@ grant_type=password&username=user@gmail.com&password=1234&scope=read
 
 ###
 
+# grant_type = 'password' and read/write
+POST http://localhost:9090/oauth/token
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic dGVzdENsaWVudElkOnRlc3RTZWNyZXQ=
+
+grant_type=password&username=user@gmail.com&password=1234&scope=write
+
+###
+
 # grant_type = 'refresh_token'
 POST http://localhost:9090/oauth/token
 Content-Type: application/x-www-form-urlencoded
