@@ -1,6 +1,6 @@
 package io.simpolor.client.controller;
 
-import io.simpolor.client.dto.StudentDto;
+import io.simpolor.client.dto.model.StudentDto;
 import io.simpolor.client.repository.entity.Student;
 import io.simpolor.client.service.StudentService;
 import lombok.RequiredArgsConstructor;

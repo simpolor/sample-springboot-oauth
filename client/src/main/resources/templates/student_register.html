@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Student Form</title>
+    <script>
+        function fnSubmit() {
+            var form = document.getElementById("studentForm");
+            form.submit();
+        }
+        function fnList() {
+            location.href = "/student/list";
+        }
+    </script>
+    <style>
+        table {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div sec:authorize="isAuthenticated()">
+        <a th:href="@{'/logout'}" th:text="logout"></a>
+        <hr />
+    </div>
+
+    <div sec:authorize="isAnonymous()">
+        <a th:href="@{'/login'}" th:text="login"></a>
+        <hr />
+    </div>
+
+    <h1>Student Form</h1>
+    <hr />
+
+    <form id="studentForm" role="form" th:action="@{'/student/register'}" th:method="post">
+        <sec:csrfInput />
+        <table>
+            <tbody>
+                <tr>
+                    <th>Name : </th>
+                    <td><input type="text" th:name="name" th:id="name" /></td>
+                </tr>
+                <tr>
+                    <th>Grade : </th>
+                    <td><input type="text" th:name="grade" th:id="grade" /></td>
+                </tr>
+                <tr>
+                    <th>Age : </th>
+                    <td><input type="text" th:name="age" th:id="age" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+
+    <hr />
+
+    <button onclick="fnSubmit()">등록</button>
+    <button onclick="fnList()">목록</button>
+
+</body>
+</html>

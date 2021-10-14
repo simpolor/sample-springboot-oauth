@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Student Modify</title>
+    <script>
+        function fnSubmit() {
+            var form = document.getElementById("studentForm");
+            form.submit();
+        }
+        function fnList() {
+            location.href = "/student/list";
+        }
+    </script>
+    <style>
+        table {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div sec:authorize="isAuthenticated()">
+        <a th:href="@{'/logout'}" th:text="logout"></a>
+        <hr />
+    </div>
+
+    <div sec:authorize="isAnonymous()">
+        <a th:href="@{'/login'}" th:text="login"></a>
+        <hr />
+    </div>
+
+    <h1>Student Modify</h1>
+    <hr />
+
+    <form id="studentForm" th:action="@{'/student/modify/'+${studentDto.seq}}" th:method="post">
+        <sec:csrfInput />
+        <table>
+            <tbody>
+            <tr>
+                <th>Name : </th>
+                <td><input type="text" th:name="name" th:id="name" th:value="${studentDto.getName()}" /></td>
+            </tr>
+            <tr>
+                <th>Grade : </th>
+                <td><input type="text" th:name="grade" th:id="grade" th:value="${studentDto.getGrade()}" /></td>
+            </tr>
+            <tr>
+                <th>Age : </th>
+                <td><input type="text" th:name="age" th:id="age" th:value="${studentDto.getAge()}" /></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+
+    <hr />
+
+    <button onclick="fnSubmit()">수정</button>
+    <button onclick="fnList()">목록</button>
+
+</body>
+</html>

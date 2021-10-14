@@ -1,5 +1,6 @@
 package io.simpolor.client.security;
 
+import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,6 @@ public class ExceptionErrorController implements ErrorController {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
         // 에러 코드에 대한 상태 정보
-
         if(Objects.nonNull(status)){
 
             HttpStatus httpStatus = HttpStatus.valueOf(Integer.valueOf(status.toString()));
@@ -42,7 +42,6 @@ public class ExceptionErrorController implements ErrorController {
                 return mav;
 
             }else if(HttpStatus.INTERNAL_SERVER_ERROR.value() == statusCode){
-
                 mav.setViewName(ERROR_500_PATH);
                 return mav;
             }

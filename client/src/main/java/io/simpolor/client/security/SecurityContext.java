@@ -4,14 +4,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Objects;
+
 public final class SecurityContext {
 
     private static final String ANONYMOUS_USER  = "anonymousUser";
 
     public static UserDetails getPrincipal() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication != null && authentication.isAuthenticated()){
-            // ignoring에 포함되지 않는 경우 무조건 인증을 통과하며,
+        if(Objects.nonNull(authentication) && authentication.isAuthenticated()){
             if (!isAnonymousUser(authentication.getName())){
                 return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             }
