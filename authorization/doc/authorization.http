@@ -1,44 +1,10 @@
-# grant_type = 'client_credentials'
-POST http://localhost:9090/oauth/token
-Content-Type: application/x-www-form-urlencoded
-Authorization: Basic dGVzdENsaWVudElkOnRlc3RTZWNyZXQ=
+# credentials 코드 받기
+POST http://localhost:9090/authorization/credentials
+Content-Type: application/json
 
-grant_type=client_credentials
-
-###
-
-# grant_type = 'password' ( scope 설정 가능 )
-POST http://localhost:9090/oauth/token
-Content-Type: application/x-www-form-urlencoded
-Authorization: Basic dGVzdENsaWVudElkOnRlc3RTZWNyZXQ=
-
-grant_type=password&username=user@gmail.com&password=1234&scope=read
-
-###
-
-# grant_type = 'password' and read/write
-POST http://localhost:9090/oauth/token
-Content-Type: application/x-www-form-urlencoded
-Authorization: Basic dGVzdENsaWVudElkOnRlc3RTZWNyZXQ=
-
-grant_type=password&username=user@gmail.com&password=1234&scope=write
-
-###
-
-# grant_type = 'refresh_token'
-POST http://localhost:9090/oauth/token
-Content-Type: application/x-www-form-urlencoded
-Authorization: Basic dGVzdENsaWVudElkOnRlc3RTZWNyZXQ=
-
-grant_type=refresh_token&refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJ1c2VyQGdtYWlsLmNvbSIsInNjb3BlIjpbInJlYWQiXSwiYXRpIjoiN1ZfaE5yVDlWOE9HWkU3THFySVljcksyWnlnIiwiZXhwIjoxNjM4ODYzNTI4LCJhdXRob3JpdGllcyI6WyJVU0VSIl0sImp0aSI6InNIM043dDg0T2tNc2hHTEF0UUw2SzM3RXc2USIsImNsaWVudF9pZCI6InRlc3RDbGllbnRJZCJ9.yPvvpIHqDu425VC6t7BRd9bZbLJIYopcXW5qIhwAUkU
-
-###
-
-# check_token
-POST http://localhost:9090/oauth/check_token
-Content-Type: application/x-www-form-urlencoded
-Authorization: Basic dGVzdENsaWVudElkOnRlc3RTZWNyZXQ=
-
-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Mjg1MTYxMjUsInVzZXJfbmFtZSI6InVzZXJAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImp0aSI6ImdRbGhqcE5MS2dPNDlXS1RjS2VWTjJ2RmlxNCIsImNsaWVudF9pZCI6InRlc3RDbGllbnRJZCIsInNjb3BlIjpbInJlYWQiXX0.lYMu0GEYqgy3dd35xMNPY36rkc9KtGIV_Uu7JNeEIL8
+{
+  "clientId": "testClientId",
+  "secret": "testSecret"
+}
 
 ###

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Authorize Code</title>
+</head>
+<body>
+    <h1>Authorize Code</h1>
+    <div>
+        <p>
+            AuthorizationServerConfig에서 redirectUris을 지정해야하며, 해당 uri 제대로 세팅되어 있지 않으면 인증이 불가능하다.<br />
+            인증시 아래와 같이 /oauth/token의 grant_type=authorization_code 로 인증하게 된다.<br />
+            <hr />
+                POST http://localhost:9090/oauth/token?grant_type=authorization_code&code=8iMpLJ&redirect_uri=http://localhost:9090/authorization/code&scope=read<br />
+                Content-Type: application/x-www-form-urlencoded<br />
+                Authorization: Basic dGVzdENsaWVudElkOnRlc3RTZWNyZXQ=
+            <hr />
+            해당 화면에서 인증을 한번 더 걸치기전에, controller에서 내부적으로 인증 처리하여 인증에 결과값을 얻을 수 있다.
+        </p>
+
+    </div>
+
+    </p>
+</body>
+</html>

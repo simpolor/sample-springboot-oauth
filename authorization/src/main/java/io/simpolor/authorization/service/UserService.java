@@ -32,9 +32,9 @@ public class UserService implements UserDetailsService {
 		return optionalUser.get();
 	}
 
-	public User get(long seq) {
+	public User get(Long userId) {
 
-		Optional<User> optionalUser = userRepository.findById(seq);
+		Optional<User> optionalUser = userRepository.findById(userId);
 		if(!optionalUser.isPresent()){
 			throw new EntityNotFoundException("Not found User");
 		}
@@ -50,19 +50,19 @@ public class UserService implements UserDetailsService {
 
 	public void update(User user) {
 
-		Optional<User> optionalUser = userRepository.findById(user.getSeq());
+		Optional<User> optionalUser = userRepository.findById(user.getUserId());
 		if(!optionalUser.isPresent()){
 			throw new EntityNotFoundException("Not found User");
 		}
 		userRepository.save(user);
 	}
 
-	public void delete(long seq) {
+	public void delete(Long userId) {
 
-		Optional<User> optionalUser = userRepository.findById(seq);
+		Optional<User> optionalUser = userRepository.findById(userId);
 		if(!optionalUser.isPresent()){
 			throw new EntityNotFoundException("Not found User");
 		}
-		userRepository.deleteById(seq);
+		userRepository.deleteById(userId);
 	}
 }

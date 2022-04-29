@@ -15,13 +15,14 @@ import java.util.List;
 @Getter
 @Entity
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long seq;
+	private Long userId;
 
 	private String email;
 	private String password;
@@ -32,16 +33,12 @@ public class User implements UserDetails {
 
 	@Override
 	public String getUsername(){
-		return email;
+		return this.email;
 	}
 
 	@Override
 	public String getPassword(){
-		return password;
-	}
-
-	public String getName(){
-		return name;
+		return this.password;
 	}
 
 	@Override

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Authorize Form</title>
+</head>
+<body>
+    <h1>Authorize Form</h1>
+    <form action="http://localhost:9090/oauth/authorize" method="post">
+        <div>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <!--
+            response_type: 어플리케이션이 Authorization Code 인증을 시작하고 있음을 OAuth 서버에 알림
+            client_id: 개발자가 어플리케이션을 처음 등록 할 때 얻은 어플리케이션의 공개 식별자
+            redirect_uri: 요청을 승인 한 후 사용자를 다시 보낼 위치를 OAuth 서버에 알림
+            scope(optional): 어플리케이션이 요청한 사용 권한을 나타냄
+            scope(optional): 어플리케이션에서 임의의 문자열을 생성하고 요청에 포함시킵니다. 그런 다음 사용자가 권한을 인증 한 후에 동일한 값이 반환되는지 확인, CSRF 공격 을 막는 데 사용함
+            -->
+            response_type : <input type="text" name="response_type" value="code" /><br />
+            client_id : <input type="text" name="client_id" value="testClientId" /><br />
+            redirect_uri :
+            <select name="redirect_uri">
+                <option value="http://localhost:9090/authorization/code">/authorization/code</option>
+                <option value="http://localhost:9090/authorization/callback">/authorization/callback</option>
+            </select><br />
+            scope : <input type="text" name="scope" value="read" /><br />
+            <hr />
+            <button>제출</button>
+        </div>
+    </form>
+</body>
+</html>

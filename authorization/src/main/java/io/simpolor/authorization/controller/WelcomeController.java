@@ -12,7 +12,7 @@ public class WelcomeController {
     @ResponseBody
     public ModelAndView welcome(ModelAndView mav) {
 
-        mav.setViewName("/welcome");
+        mav.setViewName("welcome");
         return mav;
     }
 }

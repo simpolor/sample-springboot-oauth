@@ -1,0 +1,75 @@
+# http://localhost:9090/authorization/code 호출 후 응답 받은 code 값을 입력
+# grant_type = 'authorization_code'
+POST http://localhost:9090/oauth/token
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic dGVzdENsaWVudElkOnRlc3RTZWNyZXQ=
+
+grant_type=authorization_code&code=8iMpLJ&redirect_uri=http://localhost:9090/authorization/code&scope=read
+
+###
+
+# grant_type = 'client_credentials'
+POST http://localhost:9090/oauth/token
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic dGVzdENsaWVudElkOnRlc3RTZWNyZXQ=
+
+grant_type=client_credentials
+
+###
+
+# grant_type = 'password' ( scope 설정 가능 )
+POST http://localhost:9090/oauth/token
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic dGVzdENsaWVudElkOnRlc3RTZWNyZXQ=
+
+grant_type=password&username=user@gmail.com&password=1234&scope=read
+
+###
+
+# grant_type = 'password' ( scope 설정 가능 )
+POST http://localhost:9090/oauth/token
+Content-Type: application/json
+Authorization: Basic dGVzdENsaWVudElkOnRlc3RTZWNyZXQ=
+
+{
+  "grant_type": "password",
+  "username": "user@gmail.com",
+  "password": "1234",
+  "scope": "read"
+}
+
+###
+
+# grant_type = 'password' and read/write
+POST http://localhost:9090/oauth/token
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic dGVzdENsaWVudElkOnRlc3RTZWNyZXQ=
+
+grant_type=password&username=user@gmail.com&password=1234&scope=write
+
+###
+
+# grant_type = 'refresh_token'
+POST http://localhost:9090/oauth/token
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic dGVzdENsaWVudElkOnRlc3RTZWNyZXQ=
+
+grant_type=refresh_token&refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJ1c2VyQGdtYWlsLmNvbSIsImFkZEZpbGVkIjoidGVzdCIsInNjb3BlIjpbIndyaXRlIl0sImF0aSI6IjNhbGI1Tmdjc2FVOE94Z2Zvek9yRzBBOVF2cyIsImV4cCI6MTY2MTU2NjQ2MywidXNlciI6eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsIm5hbWUiOiLsnKDsoIAifSwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImp0aSI6IklyeEhVRnpDakhRTW01WUJDSnZZU0Rld0plOCIsImNsaWVudF9pZCI6InRlc3RDbGllbnRJZCJ9.yIZA0GZH23DaUbMHBQScGxlBEq7lvou70q7QGfTfUYw
+
+###
+
+# check_token ( x-www-form-urlencoded )
+POST http://localhost:9090/oauth/check_token
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic dGVzdENsaWVudElkOnRlc3RTZWNyZXQ=
+
+token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJ1c2VyQGdtYWlsLmNvbSIsImFkZEZpbGVkIjoidGVzdCIsInNjb3BlIjpbIndyaXRlIl0sImV4cCI6MTY1MTIxNjUzMywidXNlciI6eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsIm5hbWUiOiLsnKDsoIAifSwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImp0aSI6Ilh0dTNjTjIyVWgzYjA1T25VNXlnOFlTN1p6ZyIsImNsaWVudF9pZCI6InRlc3RDbGllbnRJZCJ9.yzKnvEwE5_cLCLTkUSdAMOD9UvLH2cm9wu2ZN3mnxaQ
+
+###
+
+# check_token ( json )
+POST http://localhost:9090/oauth/check_token?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJ1c2VyQGdtYWlsLmNvbSIsImFkZEZpbGVkIjoidGVzdCIsInNjb3BlIjpbIndyaXRlIl0sImV4cCI6MTY1MTIxNjUzMywidXNlciI6eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsIm5hbWUiOiLsnKDsoIAifSwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImp0aSI6Ilh0dTNjTjIyVWgzYjA1T25VNXlnOFlTN1p6ZyIsImNsaWVudF9pZCI6InRlc3RDbGllbnRJZCJ9.yzKnvEwE5_cLCLTkUSdAMOD9UvLH2cm9wu2ZN3mnxaQ
+Content-Type: application/json
+Authorization: Basic dGVzdENsaWVudElkOnRlc3RTZWNyZXQ=
+
+###

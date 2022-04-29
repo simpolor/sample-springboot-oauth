@@ -1,5 +1,6 @@
 package io.simpolor.authorization.config;
 
+import io.simpolor.authorization.security.CustomAccessTokenEnhancer;
 import io.simpolor.authorization.security.PasswordEncoding;
 import io.simpolor.authorization.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -12,12 +13,13 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
-import javax.sql.DataSource;
+import java.util.Arrays;
 
 /**
  * OAuth 역할
@@ -43,28 +45,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private final PasswordEncoding passwordEncoding;
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
-    private final TokenStore tokenStore;
-    private final DataSource dataSource;
-
-    /* @Bean
-    public TokenStore tokenStore() {
-        // return new RedisTokenStore(jedisConnectionFactory());
-        // new JdbcTokenStore(dataSource))
-        return new InMemoryTokenStore();
-    }*/
-
-    /**
-     * JWT 토큰 인증 방식
-     * ( Jwt는 인증정보 자체가 관리되므로 저장소가 따로 필요하지 않음 )
-     * @return
-     */
-    @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter(){
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey(signKey); // signKey 키를 이용한 변환
-        return converter;
-        // return new JwtAccessTokenConverter();
-    }
+    // private final DataSource dataSource;
 
     /**
      * Token 정보를 설정
@@ -75,14 +56,16 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), jwtAccessTokenConverter()));
         endpoints
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userService) // refresh 토큰을 사용할때, 재조회를 위하여 사용
-                // .tokenStore(tokenStore);
-                .accessTokenConverter(jwtAccessTokenConverter());
+                .tokenEnhancer(tokenEnhancerChain);
+                // .tokenStore(tokenStore); // 저장소를 따로 쓰지 않으므로 사용하지 않아도됨
+                // .accessTokenConverter(jwtAccessTokenConverter()); // 이미 tokenEnhancerChain에서 선언했으므로 사용하지 않아도됨
     }
-
-    // oauth/check_token을 사용하기 위한 옵션
 
     /**
      * /oauth/check_token 사용하기 위한 설정
@@ -108,7 +91,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 // PasswordEncoding을 사용할 경우 아래 둘 중에 하나를 사용해야함
                 //.secret("{noop}testSecret")
                 .secret(passwordEncoding.encode(clientSecret)) // 스프링 5.0 부터는 암호화해서 저장하는 것을 권장
-                .redirectUris("/oauth2/callback")
+                .redirectUris("http://localhost:9090/authorization/code", "http://localhost:9090/authorization/callback")
                 .authorizedGrantTypes("authorization_code", "password", "refresh_token", "client_credentials")
                 .scopes("read", "write")
                 .autoApprove(true)
@@ -124,11 +107,48 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         /* clients.jdbc(dataSource).passwordEncoder(passwordEncoding); // Jdbc 구현체 */
     }
 
-    // Custom Jdbc Client 구현체
+    /**
+     * Custom Jdbc Client 구현체
+     */
     /* @Bean
     public ClientDetailsService clientDetailsService() {
         return new JdbcClientDetailsService(dataSource);
     } */
+
+    /**
+     * AuthorizationServer에서 grant_type : refresh_token 방식을 사용하기 위하여 빈 선언
+     * refresh_token을 사용하기 위해서 refresh_token이 저장소에 저장되어 있어야함, jwt 토큰은 따로 저장소가 필요 없음
+     * @return
+     */
+    @Bean
+    public TokenStore tokenStore() {
+        // return new RedisTokenStore(jedisConnectionFactory());
+        // return new JdbcTokenStore(dataSource))
+        // return new InMemoryTokenStore()
+        return new JwtTokenStore(jwtAccessTokenConverter());
+    }
+
+    /**
+     * JWT 토큰 인증 방식을 사용하기 위한 빈 선언
+     * ( Jwt는 인증정보 자체가 관리되므로 저장소가 따로 필요하지 않음 )
+     * @return
+     */
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter(){
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setSigningKey(signKey); // signKey 키를 이용한 변환
+        return converter;
+        // return new JwtAccessTokenConverter();
+    }
+
+    /**
+     * 인증 후 토큰 값을 가공 처리하기 위한 빈 선언
+     * @return
+     */
+    @Bean
+    public TokenEnhancer tokenEnhancer() {
+        return new CustomAccessTokenEnhancer();
+    }
 
     /**
      * 로그인 URL :

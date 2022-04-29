@@ -14,10 +14,10 @@ public class ApplicationConfig {
         return new RestTemplate();
     }
 
-    @Bean
+    /*@Bean
     public ObjectMapper objectMapper(){
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         return objectMapper;
-    }
+    }*/
 }

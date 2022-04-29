@@ -1,6 +1,5 @@
 package io.simpolor.authorization.config;
 
-import io.simpolor.authorization.security.OAuthAuthenticationProvider;
 import io.simpolor.authorization.security.PasswordEncoding;
 import io.simpolor.authorization.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -11,8 +10,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
 @Configuration
 @EnableWebSecurity
@@ -39,25 +36,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    /**
-     * AuthorizationServer에서 grant_type : refresh_toke 방식을 사용하기 위하여 빈 선언
-     * refresh_token을 사용하기 위해서 refresh_token이 저장소에 저장되어 있어야함
-     * @return
-     */
-    @Bean
-    public TokenStore tokenStore(){
-        return new InMemoryTokenStore();
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
             .csrf()
                 .ignoringAntMatchers("/h2-console/**")
-
             .and()
                 .headers()
                     .frameOptions().disable()
+            /*.csrf()
+                .disable()
+                .headers().frameOptions().disable()*/
 
             // URL에 따른 권한 체크
             .and()
@@ -65,10 +54,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/index", "/welcome").permitAll()
                 .antMatchers("/error", "/error/**", "/h2-console/**").permitAll()
                 // .antMatchers("/user/**").permitAll()
-                .antMatchers("/oauth/authorize", "/oauth/check_token").permitAll()
-                .antMatchers("/oauth/**", "/oauth2/callback").permitAll()
+                .antMatchers("/oauth/authorize", "/oauth/token", "/oauth/check_token", "/oauth/**").permitAll()
+                .antMatchers("/authorization/form", "/authorization/code", "/authorization/callback", "/authorization/**").permitAll()
                 .anyRequest().authenticated()
-            .and().formLogin()
+                .and().formLogin()
             .and().httpBasic();
     }
 

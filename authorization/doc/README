@@ -1,3 +1,13 @@
+// 작업
+- authorize 에서 로그인 페이지에서 로그인 후 index 로 가는 부분을 처리해야함
+
+// 샤쿠
+https://syaku.tistory.com/395
+https://autumnly.tistory.com/65?category=813931
+
+// 쿠키를 위한 csrf
+https://zzang9ha.tistory.com/341
+
 // jwt 인증 설정
 https://blog.naver.com/PostView.naver?blogId=varkiry05&logNo=222433667244&categoryNo=107&parentCategoryNo=0&viewDate=&currentPage=1&postListTopCurrentPage=1&from=postView&userTopListOpen=true&userTopListCount=5&userTopListManageOpen=false&userTopListCurrentPage=1
 
