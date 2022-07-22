@@ -1,10 +1,10 @@
-# http://localhost:9090/authorization/code 호출 후 응답 받은 code 값을 입력
+# 웹에서 http://localhost:9090/authorization/form 호출 후 응답 받은 code 값을 입력
 # grant_type = 'authorization_code'
 POST http://localhost:9090/oauth/token
 Content-Type: application/x-www-form-urlencoded
 Authorization: Basic dGVzdENsaWVudElkOnRlc3RTZWNyZXQ=
 
-grant_type=authorization_code&code=8iMpLJ&redirect_uri=http://localhost:9090/authorization/code&scope=read
+grant_type=authorization_code&code=yfG9jc&redirect_uri=http://localhost:9090/authorization/code&scope=read
 
 ###
 

@@ -47,6 +47,22 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private final UserService userService;
     // private final DataSource dataSource;
 
+    public final static String REDIRECT_URI_CODE = "http://localhost:9090/authorization/code";
+    public final static String REDIRECT_URI_CALLBACK = "http://localhost:9090/authorization/callback";
+
+    public final static String AUTH_GRANT_CODE = "authorization_code";
+    public final static String AUTH_GRANT_PASSWORD = "password";
+    public final static String AUTH_GRANT_REFRESH_TOKEN = "refresh_token";
+    public final static String AUTH_GRANT_CLIENT = "client_credentials";
+
+    public final static String SCOPE_READ = "read";
+    public final static String SCOPE_WRITE = "write";
+
+    public final static int ACCESS_TOKEN_VALID_SECOND = 60 * 60 * 12;
+    public final static int REFRESH_TOKEN_VALID_SECOND = 60 * 60 * 24 * 90;
+
+
+
     /**
      * Token 정보를 설정
      * access_token과 refresh_token을 저장하는 토큰 저장소
@@ -59,6 +75,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
         tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), jwtAccessTokenConverter()));
+
         endpoints
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userService) // refresh 토큰을 사용할때, 재조회를 위하여 사용
@@ -91,12 +108,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 // PasswordEncoding을 사용할 경우 아래 둘 중에 하나를 사용해야함
                 //.secret("{noop}testSecret")
                 .secret(passwordEncoding.encode(clientSecret)) // 스프링 5.0 부터는 암호화해서 저장하는 것을 권장
-                .redirectUris("http://localhost:9090/authorization/code", "http://localhost:9090/authorization/callback")
-                .authorizedGrantTypes("authorization_code", "password", "refresh_token", "client_credentials")
-                .scopes("read", "write")
+                .redirectUris(REDIRECT_URI_CODE, REDIRECT_URI_CALLBACK)
+                .authorizedGrantTypes(AUTH_GRANT_CODE, AUTH_GRANT_PASSWORD, AUTH_GRANT_REFRESH_TOKEN, AUTH_GRANT_CLIENT)
+                .scopes(SCOPE_READ, SCOPE_WRITE)
                 .autoApprove(true)
-                .accessTokenValiditySeconds(60 * 60 * 5)
-                .refreshTokenValiditySeconds(60 * 60 * 24 * 120);
+                .accessTokenValiditySeconds(ACCESS_TOKEN_VALID_SECOND)
+                .refreshTokenValiditySeconds(REFRESH_TOKEN_VALID_SECOND);
 
         /**
          * 클라이언트에 대한 설정 정보를 JDBC 클라이언트에 저장해서 사용

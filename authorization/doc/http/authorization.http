@@ -8,3 +8,8 @@ Content-Type: application/json
 }
 
 ###
+
+# credentials 코드 받기
+GET http://localhost:9090/authorization/credentials?clientId=testClientId&secret=testSecret
+
+###

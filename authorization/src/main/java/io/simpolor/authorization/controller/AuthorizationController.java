@@ -104,6 +104,19 @@ public class AuthorizationController {
         return new OAuthToken();
     }
 
+    /*@GetMapping("/credentials")
+    public String authorize(@RequestParam String clientId, @RequestParam String secret) {
+
+        if(!clientId.equals(oauthClientId) || !secret.equals(oauthSecret)){
+            return "";
+        }
+
+        String credentials = clientId+":"+secret;
+        String encoderCredentials = new String(Base64.encodeBase64(credentials.getBytes()));
+
+        return "Basic " + encoderCredentials;
+    }*/
+
     @PostMapping("/credentials")
     public String authorize(@RequestBody AuthorizeDto request) {
 
