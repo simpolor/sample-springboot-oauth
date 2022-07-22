@@ -1,0 +1,40 @@
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /console
+  thymeleaf:
+    cache: false
+  security:
+    oauth2:
+      jwt:
+        signkey: 123!@#
+      client:
+        registration:
+          google:
+            client-id:
+            client-secret:
+          facebook:
+            client-id:
+            client-secret:
+          naver:
+            client-id:
+            client-secret:
+            client-name: Naver
+            redirect-uri: http://localhost:8080/login/oauth2/code/naver
+            authorization-grant-type: authorization_code
+          kakao:
+            client-id:
+            client-secret:
+            client-name: kakao
+            redirect-uri: http://localhost:8080/login/oauth2/code/kakao
+            authorization-grant-type:
+            scope: profile,account_email
+            authentication-method: POST
+          line:
+            client-id:
+            client-secret:
+            client-name: line
+            redirect-uri: http://localhost:8080/login/oauth2/code/line
+            scope: profile,openid
+            authentication-method: POST
